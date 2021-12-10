@@ -78,7 +78,46 @@ const makeGuess = function(letter) {
         playerMessage.innerText = "You already guessed that letter. Try again.";
     } else {
         guessedLetters.push(letter);
+        showGuessedLetters();
     }
     console.log(guessedLetters);
+    updateWordInProgress(guessedLetters);
 };  
+
+//Display guessed letters on the screen:
+const showGuessedLetters = function () {
+    guessedLettersElements.innerHTML = "";
+    for (let item of guessedLetters) {
+        let listItem = document.createElement("li");
+        listItem.innerText = item;
+        guessedLettersElements.append(listItem);
+    }
+}; //NOTE: Box with letter occurs outside input field when clicking in input field. WHY?
+
+
+//Update word in progress field and replace placeholder circles with correctly guessed letters:
+const updateWordInProgress = function(guessedLetters) {
+    const wordUpper = word.toUpperCase(); 
+    const wordArray = wordUpper.split(""); // method splits string into an array of substrings (letters).
+    //console.log("word array is logged out", wordArray);
+    //console.log("word upper is logged out", wordUpper);
+    const showCorrectLetters = []; // new array with updated characters replaces placeholderCircles array.
+    for (const item of wordArray) {
+        if (guessedLetters.includes(item)) {
+            showCorrectLetters.push(item.toUpperCase()); // wordArray checks each letter, ONE AT A TIME, against guessedLetters array. If the letter is in the guessedLetters array, it is pushed to new array; if not, a dot is pushed. That way the order of letters in the wordArray is maintained in the new array.  
+        } else {
+            showCorrectLetters.push("●");
+        } 
+        wordInProgress.innerText = showCorrectLetters.join("");
+        wordIsGuessed();
+    }
+};
+
+//Check if player guessed the word and won:
+const wordIsGuessed = function () {
+    if (word.toUpperCase() === wordInProgress.innerText) { 
+        playerMessage.classList.add("win");
+        playerMessage.innerText = "You guessed the word! Congrats!";
+    } 
+};
 
