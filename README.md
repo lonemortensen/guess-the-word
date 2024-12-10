@@ -59,3 +59,5 @@ During this project, I practiced:
 ## Launch
 [See the live version of the Guess the Word game here.](https://lonemortensen.github.io/guess-the-word/)
 
+## Acknowledgements
+**Skillcrush** - I coded the JavaScript file for the Guess the Word game with support and guidance from Skillcrush. The game’s HTML and CSS files were provided by Skillcrush. 
